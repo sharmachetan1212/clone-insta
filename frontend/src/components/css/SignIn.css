@@ -1,5 +1,5 @@
 .signIn{
-  background-image: url("../Images/igpg.jpg");
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB1lN1hGZAj0MpZ1ZoN7tt7q38JyzTvjmSMQ&usqp=CAU");
   background-size: cover;
   flex: 1;
   display: flex;
@@ -13,14 +13,6 @@
   border: 1px solid rgb(129, 121, 121);
   border-radius: 1px;
 } 
-
-.loginForm2{
-  background-color: #ffffff4d;
-  padding: 20px;
-  margin-top: 5px;
-  border: 1px solid rgb(129, 121, 121);
-  border-radius: 1px;
-}
 
 #login-btn{
   background-color: #1773EA;
