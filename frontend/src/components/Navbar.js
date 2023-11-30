@@ -21,7 +21,7 @@ export default function Navbar({ login }) {
             <li>Create Post</li>
           </Link>
           <Link to="/myfollowingpost">
-            <li>MyFollowingPost</li>
+            <li>My Following Post</li>
           </Link>
           <Link to={" "}>
             <button
