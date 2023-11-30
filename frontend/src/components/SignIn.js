@@ -3,88 +3,85 @@ import "./css/SignIn.css"; // Import your CSS file
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { loginContext } from "../context/loginContext";
+import { Link } from "react-router-dom";
+import logo1 from "./Images/logo1.png";
 
-const Signin = () => {
-  const {setUserLogin} = useContext(loginContext);
+
+export default function SignIn() {
+  const { setUserLogin } = useContext(loginContext)
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-    // Toast functions
-    const notifyA = (msg) => toast.error(msg);
-    const notifyB = (msg) => toast.success(msg);
-  
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  // Toast functions
+  const notifyA = (msg) => toast.error(msg)
+  const notifyB = (msg) => toast.success(msg)
 
-  const postData = () => { 
+  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  const postData = () => {
+    //checking email
     if (!emailRegex.test(email)) {
-      notifyA("Invalid email or Username or Name");
+      notifyA("Invalid email")
       return
     }
-    // Sendiing data to server
-    fetch("/signin", {
+    // Sending data to server
+    fetch("http://localhost:5000/signin", {
       method: "post",
       headers: {
-        "Content-Type": "application/json",
-        // Authorization: "Bearer " + localStorage.getItem("jwt")
+        "Content-Type": "application/json"
       },
-      body:JSON.stringify({
+      body: JSON.stringify({
         email: email,
         password: password
+
       })
-    }).then(resp => resp.json())
+    }).then(res => res.json())
       .then(data => {
         if (data.error) {
-          notifyA(data.error);
+          notifyA(data.error)
         } else {
-          notifyB("Signed in Successfully");
-          console.log(data);
-          localStorage.setItem("jwt",data.token)
-          localStorage.setItem("user",JSON.stringify(data.user))
+          notifyB("Signed In Successfully")
+          console.log(data)
+          localStorage.setItem("jwt", data.token)
+          localStorage.setItem("user", JSON.stringify(data.user))
+
           setUserLogin(true)
-          navigate("/");
+          navigate("/")
         }
-        console.log(data);
-      }).catch(error => {
-        console.log(error);
+        console.log(data)
       })
-  };
-  // Login Form
+  }
+
   return (
-    <div className="signin-container">
-      <div className="signin-form">
-        <h1>Instagram</h1>
-        <form>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            required
-            autoComplete="off"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            required
-          />
-          <button type="button" id="login-btn" value="Sign In" 
-          onClick={() => {
-            postData()}}
-            >Sign In</button>
-        </form>
+    <div className="signIn">
+      <div>
+        <div className="loginForm">
+          <img className="signUpLogo" 
+          src={logo1} 
+          alt="" />
+          <div>
+            <input type="email" name="email" id="email" value={email} placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => { setPassword(e.target.value) }}
+            />
+          </div>
+          <input type="submit" id="login-btn" onClick={() => { postData() }} value="Sign In" />
+        </div>
+        <div className="loginForm2">
+          Don't have an account ?
+          <Link to="/signup">
+            <span style={{ color: "blue", cursor: "pointer" }}>Sign Up</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
-};
-
-export default Signin;
+}
