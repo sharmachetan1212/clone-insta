@@ -15,7 +15,6 @@ A simple front-end replica of Instagram built using HTML and CSS. This project d
 ## 🖼️ Demo Preview
 
 ![Preview](https://user-images.githubusercontent.com/your-username/demo-image.png)  
-*Replace with an actual screenshot or animated GIF*
 
 ---
 
